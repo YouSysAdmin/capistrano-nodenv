@@ -27,6 +27,7 @@ namespace :nodenv do
       SSHKit.config.command_map.prefix[command.to_sym].unshift(nodenv_prefix)
     end
   end
+end
 
 Capistrano::DSL.stages.each do |stage|
   after stage, 'nodenv:validate'
@@ -38,10 +39,10 @@ namespace :load do
     set :nodenv_path, -> {
       nodenv_path = fetch(:nodenv_custom_path)
       nodenv_path ||= if fetch(:nodenv_type, :user) == :system
-        "/usr/local/nodenv"
-      else
-        "$HOME/.nodenv"
-      end
+                        "/usr/local/nodenv"
+                      else
+                        "$HOME/.nodenv"
+                      end
     }
 
     set :nodenv_roles, fetch(:nodenv_roles, :all)
