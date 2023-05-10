@@ -19,11 +19,14 @@ namespace :nodenv do
     nodenv_prefix = fetch(:nodenv_prefix, proc { "#{fetch(:nodenv_path)}/bin/nodenv exec" })
     SSHKit.config.command_map[:nodenv] = "#{fetch(:nodenv_path)}/bin/nodenv"
 
+    system_path = (SSHKit.config.default_env[:path] = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin")
+    path_nodenv_shims = "#{fetch(:nodenv_path)}/shims:#{fetch(:nodenv_path)}/bin:" + "#{(system_path.nil?) ? '$PATH' : system_path}"
+    SSHKit.config.default_env.merge!(path: system_path)
+    
     fetch(:nodenv_map_bins).each do |command|
       SSHKit.config.command_map.prefix[command.to_sym].unshift(nodenv_prefix)
     end
   end
-end
 
 Capistrano::DSL.stages.each do |stage|
   after stage, 'nodenv:validate'
