@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |gem|
   gem.name          = "capistrano-nodenv"
-  gem.version       = '1.1.0'
+  gem.version       = '1.1.1'
   gem.authors       = ["Juan Ignacio Donoso"]
   gem.email         = ["jidonoso@gmail.com"]
   gem.description   = %q{nodenv integration for Capistrano}
@@ -15,6 +15,6 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_dependency 'capistrano', '~> 3.1'
-  gem.add_dependency 'sshkit', '~> 1.3'
+  gem.add_dependency 'capistrano', '~> 3.17'
+  gem.add_dependency 'sshkit', '~> 1.9.0'
 end
